@@ -30,9 +30,21 @@ public class Tube {
         if (isEmpty()) {
             return null;
         }
-        Block block = tube.peek();
-        tube.pop();
-        return block;
+        return tube.pop();
+    }
+
+    public Boolean isHomogenous() {
+        if (isEmpty()) return true;
+        Stack<Block> temp = (Stack<Block>) tube.clone();
+
+        Block block = temp.pop();
+        while (!temp.empty()) {
+            if (!temp.peek().equals(block)) {
+                return false;
+            }
+            temp.pop();
+        }
+        return true;
     }
 
 }
