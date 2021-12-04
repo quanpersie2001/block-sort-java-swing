@@ -14,11 +14,11 @@ public class Tube {
         return true;
     }
 
-    private Boolean isFull() {
+    public Boolean isFull() {
         return tube.size() == TubeSize;
     }
 
-    private Boolean isEmpty() {
+    public Boolean isEmpty() {
         return tube.empty();
     }
 
