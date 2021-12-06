@@ -15,4 +15,9 @@ public class Block {
     public boolean equals(Block other) {
         return this.getColor().equals(other.getColor());
     }
+
+    @Override
+    public String toString() {
+        return color.toString();
+    }
 }
