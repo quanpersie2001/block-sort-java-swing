@@ -1,7 +1,7 @@
 package model;
 
 
-import java.awt.Color;
+import utils.MyColor;
 import java.awt.Graphics2D;
 import java.util.Iterator;
 import java.util.Stack;
@@ -106,7 +106,7 @@ public class Tube {
     public void drawTube(Graphics2D g){
         Iterator iterator = tube.iterator();
 
-        g.setColor(Color.black);
+        g.setColor(MyColor.TUBE_COLOR);
         //fill tube
         g.fillRect(this.x, this.y, 3, 190);
         g.fillRect(this.x + 57, this.y, 3, 190);
