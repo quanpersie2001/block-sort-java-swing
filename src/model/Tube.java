@@ -1,11 +1,16 @@
 package model;
 
 
+import java.awt.Color;
+import java.awt.Graphics2D;
+import java.util.Iterator;
 import java.util.Stack;
 
 public class Tube {
-    private final static Integer TubeSize = 4;
+    private final static Integer tubeSize = 4;
     private Stack<Block> tube = new Stack<>();
+    private int x;
+    private int y;
 
     public Tube() {
     }
@@ -14,10 +19,42 @@ public class Tube {
         this.tube = tube;
     }
 
-    public Tube(Block... blocks ){
+    public Tube(int x, int y, Block... blocks){
+        this.x = x;
+        this.y = y;
         for (Block block : blocks) {
-            addBlock(block);
+            push(block);
         }
+    }
+
+    public void setPosBlock(){
+        Iterator iterator = tube.iterator();
+        int count = 0;
+        while (iterator.hasNext()) {
+            Block block = (Block) iterator.next();
+            int blockX = x + 5;
+            int blockY = y + 148 - count * 42;
+            block.setX(blockX);
+            block.setY(blockY);
+            block.setRect(blockX, blockY);
+            count++;
+        }
+    }
+
+    public int getX() {
+        return x;
+    }
+
+    public void setX(int x) {
+        this.x = x;
+    }
+
+    public int getY() {
+        return y;
+    }
+
+    public void setY(int y) {
+        this.y = y;
     }
 
     public Boolean push(Block block) {
@@ -27,15 +64,12 @@ public class Tube {
         tube.push(block);
         return true;
     }
-
-    public Boolean addBlock(Block block){
-        if (isFull()) return false;
-        tube.add(block);
-        return true;
+    public int size(){
+        return tube.size();
     }
 
     public Boolean isFull() {
-        return tube.size() == TubeSize;
+        return tube.size() == tubeSize;
     }
 
     public Boolean isEmpty() {
@@ -55,9 +89,11 @@ public class Tube {
 
     public Boolean isHomogenous() {
         if (isEmpty()) return true;
-        Stack<Block> temp = (Stack<Block>) tube.clone();
+        if (size() < tubeSize) return false;
 
+        Stack<Block> temp = (Stack<Block>) tube.clone();
         Block block = temp.pop();
+
         while (!temp.empty()) {
             if (!temp.peek().equals(block)) {
                 return false;
@@ -65,6 +101,23 @@ public class Tube {
             temp.pop();
         }
         return true;
+    }
+
+    public void drawTube(Graphics2D g){
+        Iterator iterator = tube.iterator();
+
+        g.setColor(Color.black);
+        //fill tube
+        g.fillRect(this.x, this.y, 3, 190);
+        g.fillRect(this.x + 57, this.y, 3, 190);
+        g.fillRect(this.x, y+190, 60, 3);
+        //fill block
+        setPosBlock();
+        while (iterator.hasNext()) {
+            Block block = (Block) iterator.next();
+            g.setColor(block.getColor());
+            g.fill(block);
+        }
     }
 
     @Override

@@ -1,10 +1,23 @@
 package model;
 
 import java.awt.Color;
+import java.awt.geom.Rectangle2D;
 
-public class Block {
-    Color color;
-    public Block(Color color) {
+public class Block extends Rectangle2D.Double {
+    private Color color;
+    private int x;
+    private int y;
+    private static final int BLOCK_WIDTH = 50;
+    private static final int BLOCK_HEIGHT = 40;
+
+    public Block(int x,int y, Color color) {
+        this.x = x;
+        this.y = y;
+        this.color = color;
+        setRect(x, y, BLOCK_WIDTH, BLOCK_HEIGHT);
+    }
+
+    public Block(Color color){
         this.color = color;
     }
 
@@ -14,6 +27,18 @@ public class Block {
 
     public boolean equals(Block other) {
         return this.getColor().equals(other.getColor());
+    }
+
+    public void setX(int x) {
+        this.x = x;
+    }
+
+    public void setY(int y) {
+        this.y = y;
+    }
+
+    public void setRect(double x, double y) {
+        setRect(x, y, BLOCK_WIDTH, BLOCK_HEIGHT);
     }
 
     @Override
