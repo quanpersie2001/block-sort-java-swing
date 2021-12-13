@@ -25,6 +25,7 @@ public class GamePanel extends JPanel implements MouseListener, MouseMotionListe
     private int level;
     private int moveCount;
     public int levelQuantity;
+    private int tubePop;
 
     public GamePanel(){
         this.levelQuantity = Utils.getLevelQuantity();
@@ -189,10 +190,12 @@ public class GamePanel extends JPanel implements MouseListener, MouseMotionListe
                     this.ay=top.getY();
                     this.width = p.getX() - ax;
                     this.isDrag = true;
+                    this.tubePop = n;
                 }
                 else {
                     this.top = null;
                     this.isDrag = false;
+                    this.tubePop = -1;
                 }
             }
         }
@@ -218,7 +221,9 @@ public class GamePanel extends JPanel implements MouseListener, MouseMotionListe
                     if (!this.tubeList.get(tubeNum).isFull()) {
                         x = this.tubeList.get(tubeNum).getX() + 5;
                         y = this.tubeList.get(tubeNum).top().getY() - 42;
-                        this.moveCount++;
+                        if (this.tubePop != tubeNum) {
+                            this.moveCount++;
+                        }
                     } else {
                         tubeNum = currentTube(new Point((int) this.ax, (int) this.ay));
                         x = this.tubeList.get(tubeNum).getX() + 5;
@@ -228,7 +233,9 @@ public class GamePanel extends JPanel implements MouseListener, MouseMotionListe
                 } else {
                     x = this.tubeList.get(tubeNum).getX() + 5;
                     y = this.tubeList.get(tubeNum).getY() - 190;
-                    this.moveCount++;
+                    if (this.tubePop != tubeNum) {
+                        this.moveCount++;
+                    }
                 }
             }
             this.top.setFrame(x, y, this.top.getWidth(), this.top.getHeight());
