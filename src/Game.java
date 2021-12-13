@@ -9,7 +9,7 @@ public class Game extends JFrame {
             public void run() {
                 try {
                     Game frame = new Game();
-                    frame.setSize(800,600);
+                    frame.setSize(1366,768);
                     frame.setVisible(true);
                 } catch (Exception e){
                     e.printStackTrace();
@@ -17,9 +17,11 @@ public class Game extends JFrame {
             }
         });
     }
+
     public Game(){
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 //        setBounds(0, 0, 800, 600);
-        setContentPane(new GamePanel());
+        setContentPane(new PuzzlePanel());
+        setResizable(false);
     }
 }
