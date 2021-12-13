@@ -1,12 +1,14 @@
 import DAO.TubeDAO;
 import model.Block;
 import model.Tube;
+import ui.VictoryDialog;
 import utils.Constant;
 import utils.Utils;
 
 import javax.swing.*;
 import java.awt.*;
 
+import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
 import java.awt.event.MouseMotionListener;
@@ -218,7 +220,6 @@ public class GamePanel extends JPanel implements MouseListener, MouseMotionListe
                         y = this.tubeList.get(tubeNum).top().getY() - 42;
                         this.moveCount++;
                     } else {
-                        JOptionPane.showMessageDialog(this, "This tube is full", "Block Sort", JOptionPane.ERROR_MESSAGE);
                         tubeNum = currentTube(new Point((int) this.ax, (int) this.ay));
                         x = this.tubeList.get(tubeNum).getX() + 5;
                         y = this.tubeList.get(tubeNum).top().getY() - 42;
@@ -238,12 +239,6 @@ public class GamePanel extends JPanel implements MouseListener, MouseMotionListe
             repaint();
         }
 
-        if (isCompleteGame()) {
-            JOptionPane.showMessageDialog(this, "Complete", "Block Sort", JOptionPane.INFORMATION_MESSAGE);
-            this.level++;
-            init(this.level);
-            repaint();
-        }
         System.out.println("move:" + moveCount);
     }
 

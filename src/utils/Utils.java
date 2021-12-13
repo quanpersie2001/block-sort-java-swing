@@ -2,7 +2,9 @@ package utils;
 
 import model.Block;
 
+import java.awt.*;
 import java.io.File;
+import java.io.IOException;
 
 public class Utils {
 
@@ -58,5 +60,17 @@ public class Utils {
         File directory=new File(Constant.LEVEL_PATH);
         int fileCount=directory.list().length;
         return fileCount;
+    }
+    public static Font getMontserratFont(){
+        Font montserrat = null;
+        try {
+            montserrat = Font.createFont(Font.TRUETYPE_FONT, new File(Constant.FONT_PATH + "Montserrat-ExtraBold.ttf"));
+        } catch (FontFormatException e) {
+            e.printStackTrace();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+
+        return montserrat;
     }
 }

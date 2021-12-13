@@ -1,5 +1,7 @@
+import ui.VictoryDialog;
 import utils.Constant;
 import utils.MyColor;
+import utils.Utils;
 
 import javax.swing.*;
 import java.awt.*;
@@ -22,7 +24,7 @@ public class PuzzlePanel extends JPanel{
     PuzzlePanel(){
         initComponents();
         //Listener
-        gamPanelListener();
+        gamePanelListener();
         onChangeLevelListener();
     }
 
@@ -49,7 +51,7 @@ public class PuzzlePanel extends JPanel{
 
         this.add(gamePanel, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 100, 1366, 670));
 
-        btnHome.setIcon(new ImageIcon(Constant.DRAWABLE_PATH + "btn_home.png")); // NOI18N
+        btnHome.setIcon(new ImageIcon(Constant.DRAWABLE_PATH + "btn_home.png"));
         this.add(btnHome, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 20, -1, -1));
         btnHome.addMouseListener(new MouseAdapter() {
             @Override
@@ -58,7 +60,7 @@ public class PuzzlePanel extends JPanel{
             }
         });
 
-        btnSetting.setIcon(new ImageIcon(Constant.DRAWABLE_PATH + "btn_setting.png")); // NOI18N
+        btnSetting.setIcon(new ImageIcon(Constant.DRAWABLE_PATH + "btn_setting.png"));
         this.add(btnSetting, new org.netbeans.lib.awtextra.AbsoluteConstraints(1260, 20, -1, -1));
         btnSetting.addMouseListener(new MouseAdapter() {
             @Override
@@ -67,7 +69,7 @@ public class PuzzlePanel extends JPanel{
             }
         });
 
-        btnReset.setIcon(new ImageIcon(Constant.DRAWABLE_PATH + "btn_reset.png")); // NOI18N
+        btnReset.setIcon(new ImageIcon(Constant.DRAWABLE_PATH + "btn_reset.png"));
         this.add(btnReset, new org.netbeans.lib.awtextra.AbsoluteConstraints(1120, 20, -1, -1));
         btnReset.addMouseListener(new MouseAdapter() {
             @Override
@@ -76,7 +78,7 @@ public class PuzzlePanel extends JPanel{
             }
         });
 
-        btnUndo.setIcon(new ImageIcon(Constant.DRAWABLE_PATH + "btn_undo.png")); // NOI18N
+        btnUndo.setIcon(new ImageIcon(Constant.DRAWABLE_PATH + "btn_undo.png"));
         this.add(btnUndo, new org.netbeans.lib.awtextra.AbsoluteConstraints(160, 20, -1, -1));
         btnUndo.addMouseListener(new MouseAdapter() {
             @Override
@@ -85,7 +87,7 @@ public class PuzzlePanel extends JPanel{
             }
         });
 
-        btnPreLevel.setIcon(new ImageIcon(Constant.DRAWABLE_PATH + "btn_pre_level.png")); // NOI18N
+        btnPreLevel.setIcon(new ImageIcon(Constant.DRAWABLE_PATH + "btn_pre_level.png"));
         this.add(btnPreLevel, new org.netbeans.lib.awtextra.AbsoluteConstraints(460, 40, -1, -1));
         btnPreLevel.addMouseListener(new MouseAdapter() {
             @Override
@@ -97,7 +99,7 @@ public class PuzzlePanel extends JPanel{
             btnPreLevel.setVisible(false);
         }
 
-        btnNextLevel.setIcon(new ImageIcon(Constant.DRAWABLE_PATH + "btn_next_level.png")); // NOI18N
+        btnNextLevel.setIcon(new ImageIcon(Constant.DRAWABLE_PATH + "btn_next_level.png"));
         this.add(btnNextLevel, new org.netbeans.lib.awtextra.AbsoluteConstraints(860, 40, -1, -1));
         btnNextLevel.addMouseListener(new MouseAdapter() {
             @Override
@@ -106,22 +108,24 @@ public class PuzzlePanel extends JPanel{
             }
         });
 
-        jLabel3.setFont(new java.awt.Font("Montserrat ExtraBold", 0, 55)); // NOI18N
+        Font montserrat = Utils.getMontserratFont();
+
+        jLabel3.setFont(montserrat.deriveFont(55f));
         jLabel3.setForeground(MyColor.WHITE);
         jLabel3.setText("LEVEL ");
         jLabel3.setToolTipText("");
         this.add(jLabel3, new org.netbeans.lib.awtextra.AbsoluteConstraints(565, 20, -1, 80));
 
-        txtLevel.setFont(new java.awt.Font("Montserrat ExtraBold", 0, 55)); // NOI18N
+        txtLevel.setFont(montserrat.deriveFont(55f));
         txtLevel.setForeground(MyColor.WHITE);
         txtLevel.setText(String.valueOf(this.gamePanel.getLevel()));
         this.add(txtLevel, new org.netbeans.lib.awtextra.AbsoluteConstraints(773, 20, -1, 80));
 
-        background.setIcon(new ImageIcon(Constant.DRAWABLE_PATH + "background.png")); // NOI18N
+        background.setIcon(new ImageIcon(Constant.DRAWABLE_PATH + "background.png"));
         this.add(background, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, -1, -1));
     }
 
-    private void gamPanelListener(){
+    private void gamePanelListener(){
         this.gamePanel.addMouseListener(new MouseListener() {
             @Override
             public void mouseClicked(MouseEvent e) {
@@ -135,6 +139,19 @@ public class PuzzlePanel extends JPanel{
             @Override
             public void mouseReleased(MouseEvent e) {
                 txtLevel.setText(String.valueOf(gamePanel.getLevel()));
+                if (gamePanel.isCompleteGame()) {
+                    VictoryDialog dialog = new VictoryDialog();
+                    dialog.showDialog();
+                    dialog.btnContinue.addMouseListener(new MouseAdapter() {
+                        @Override
+                        public void mouseClicked(MouseEvent e) {
+                            gamePanel.nextLevel();
+                            dialog.closeDialog();
+                            txtLevel.setText(String.valueOf(gamePanel.getLevel()));
+                            repaint();
+                        }
+                    });
+                }
             }
 
             @Override
@@ -153,6 +170,11 @@ public class PuzzlePanel extends JPanel{
         this.txtLevel.addComponentListener(new ComponentListener() {
             @Override
             public void componentResized(ComponentEvent e) {
+
+            }
+
+            @Override
+            public void componentMoved(ComponentEvent e) {
                 if (gamePanel.getLevel() == 1){
                     btnPreLevel.setVisible(false);
                 }else {
@@ -165,11 +187,6 @@ public class PuzzlePanel extends JPanel{
 
                 jLabel3.setLocation(levelTextX,y);
                 txtLevel.setLocation(levelNumX,y);
-            }
-
-            @Override
-            public void componentMoved(ComponentEvent e) {
-
             }
 
             @Override
