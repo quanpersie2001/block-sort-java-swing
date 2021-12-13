@@ -1,6 +1,7 @@
 package model;
 
 
+import utils.Constant;
 import utils.MyColor;
 import java.awt.Graphics2D;
 import java.util.Iterator;
@@ -32,8 +33,8 @@ public class Tube {
         int count = 0;
         while (iterator.hasNext()) {
             Block block = (Block) iterator.next();
-            int blockX = x + 5;
-            int blockY = y + 148 - count * 42;
+            int blockX = x + (Constant.TUBE_THICKNESS + Constant.SLIT_DISTANCE);
+            int blockY = y + (Constant.TUBE_HEIGHT - Constant.BLOCK_HEIGHT - Constant.SLIT_DISTANCE) - count * (Constant.BLOCK_HEIGHT + Constant.SLIT_DISTANCE);
             block.setX(blockX);
             block.setY(blockY);
             block.setRect(blockX, blockY);
@@ -108,9 +109,9 @@ public class Tube {
 
         g.setColor(MyColor.TUBE_COLOR);
         //fill tube
-        g.fillRect(this.x, this.y, 3, 190);
-        g.fillRect(this.x + 57, this.y, 3, 190);
-        g.fillRect(this.x, y+190, 60, 3);
+        g.fillRect(this.x, this.y, Constant.TUBE_THICKNESS, Constant.TUBE_HEIGHT);
+        g.fillRect(this.x + Constant.TUBE_WIDTH - Constant.TUBE_THICKNESS, this.y, Constant.TUBE_THICKNESS, Constant.TUBE_HEIGHT);
+        g.fillRect(this.x, y + Constant.TUBE_HEIGHT, Constant.TUBE_WIDTH, Constant.TUBE_THICKNESS);
         //fill block
         setPosBlock();
         while (iterator.hasNext()) {

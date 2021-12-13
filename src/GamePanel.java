@@ -1,12 +1,11 @@
 import DAO.TubeDAO;
 import model.Block;
 import model.Tube;
+import utils.Constant;
+import utils.Utils;
 
-import javax.swing.JPanel;
-import javax.swing.JOptionPane;
-import java.awt.Graphics2D;
-import java.awt.Graphics;
-import java.awt.Point;
+import javax.swing.*;
+import java.awt.*;
 
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
@@ -16,22 +15,25 @@ import java.util.List;
 
 public class GamePanel extends JPanel implements MouseListener, MouseMotionListener {
 
-
     private List<Tube> tubeList;
     private int size;
     private boolean isDrag = false;
     private Block top;
     private double ax, ay, width, height;
-    private int startX = 40;
-    private int startY = 40;
     private int level;
     private int moveCount;
+    public int levelQuantity;
 
     public GamePanel(){
+        this.levelQuantity = Utils.getLevelQuantity();
         this.level = 1;
         init(this.level);
         this.addMouseListener(this);
         this.addMouseMotionListener(this);
+    }
+
+    public int getLevel(){
+        return this.level;
     }
 
     private void init(int level){
@@ -48,13 +50,43 @@ public class GamePanel extends JPanel implements MouseListener, MouseMotionListe
 
     public int currentTube(Point p){
         Rectangle2D.Double r= new Rectangle2D.Double();
-        int x = startX;
-        int y = startY;
-        for (int i = 0; i < this.size; i++){
-            r.setFrame(x, y, 60, 190);
-            x += getWidth()/this.size;
-            if (r.contains(p)){
-                return i;
+        int x;
+        int y;
+        if (this.size < 7) {
+            x = getXStart(this.size);
+            y = (getHeight() - Constant.TUBE_HEIGHT) / 2 - 50;
+
+            for (int i = 0; i < this.size; i++){
+                r.setFrame(x, y, Constant.TUBE_WIDTH, Constant.TUBE_HEIGHT);
+                x += this.getWidth()/this.size;
+                if (r.contains(p)){
+                    return i;
+                }
+            }
+        } else {
+            int row1Size = (this.size + 1) / 2;
+            int row2Size = this.size - row1Size;
+            // Get Position of row 1
+            x = getXStart(row1Size);
+            y = 50;
+
+            for (int i = 0; i < row1Size; i++){
+                r.setFrame(x, y, Constant.TUBE_WIDTH, Constant.TUBE_HEIGHT);
+                x += this.getWidth()/row1Size;
+                if (r.contains(p)){
+                    return i;
+                }
+            }
+            // get Position of row 2
+            x = getXStart(row2Size);
+            y = y + Constant.TUBE_HEIGHT + Constant.ROW_TUBE_DISTANCE;
+
+            for (int i = row1Size; i < this.size; i++){
+                r.setFrame(x, y, Constant.TUBE_WIDTH, Constant.TUBE_HEIGHT);
+                x += this.getWidth()/row2Size;
+                if (r.contains(p)){
+                    return i;
+                }
             }
         }
         return -1;
@@ -69,24 +101,71 @@ public class GamePanel extends JPanel implements MouseListener, MouseMotionListe
         return true;
     }
 
+    public void reset(){
+        init(this.level);
+        repaint();
+    }
+
+    public void nextLevel() {
+        this.level++;
+        init(this.level);
+        repaint();
+    }
+    public void preLevel() {
+        if (this.level > 1){
+            this.level--;
+            init(this.level);
+            repaint();
+        }
+    }
+
     @Override
     protected void paintComponent(Graphics g) {
         super.paintComponent(g);
         Graphics2D g1=(Graphics2D)g;
-        int x = startX;
-        int y = startY;
+        int x;
+        int y;
 
-        for (int i = 0; i < this.size; i++){
-            tubeList.get(i).setX(x);
-            tubeList.get(i).setY(y);
-            tubeList.get(i).drawTube(g1);
-            x += getWidth()/this.size;
+        if (this.size < 7) {
+//          Reduced from x = (getWidth() - (Constant.TUBE_WIDTH * this.size + (getWidth() / this.size - Constant.TUBE_WIDTH) * (this.size - 1)))/2
+            x = getXStart(this.size);
+            y = (getHeight() - Constant.TUBE_HEIGHT) / 2 - 50;
+
+            drawAllTube(g1, 0, this.size, this.size, x, y);
+        } else {
+            int row1Size = (this.size + 1) / 2;
+            int row2Size = this.size - row1Size;
+            // Get Position of row 1
+            x = getXStart(row1Size);
+            y = 50;
+            // Draw tube in row 1
+            drawAllTube(g1,0, row1Size, row1Size, x, y);
+
+            // get Position of row 2
+            x = getXStart(row2Size);
+            y = y + Constant.TUBE_HEIGHT + Constant.ROW_TUBE_DISTANCE;
+            // Draw tube in row 2
+            drawAllTube(g1, row1Size, this.size, row2Size, x, y);
         }
+
         if(isDrag ==true && top!=null) {
             g1.setColor(top.getColor());
             g1.fill(top);
         }
+        this.setOpaque(false);
+    }
 
+    private void drawAllTube(Graphics2D g, int startTube, int endTube, int rowSize, int x, int y){
+        for (int i = startTube; i < endTube; i++){
+            tubeList.get(i).setX(x);
+            tubeList.get(i).setY(y);
+            tubeList.get(i).drawTube(g);
+            x += this.getWidth()/rowSize;
+        }
+    }
+
+    private int getXStart(int rowSize) {
+        return (getWidth()/rowSize - Constant.TUBE_WIDTH) / 2;
     }
 
     @Override
@@ -98,6 +177,7 @@ public class GamePanel extends JPanel implements MouseListener, MouseMotionListe
     public void mousePressed(MouseEvent e) {
         Point p= e.getPoint();
         int n= currentTube(p);
+        System.out.println(n);
         if (n != -1){
             if(!this.tubeList.get(n).isEmpty()){
                 this.top = this.tubeList.get(n).top();

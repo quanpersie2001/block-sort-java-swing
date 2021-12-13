@@ -2,6 +2,8 @@ package utils;
 
 import model.Block;
 
+import java.io.File;
+
 public class Utils {
 
     public static Block makeBlock(String s){
@@ -51,5 +53,10 @@ public class Utils {
             default:
                 return null;
         }
+    }
+    public static int getLevelQuantity(){
+        File directory=new File(Constant.LEVEL_PATH);
+        int fileCount=directory.list().length;
+        return fileCount;
     }
 }
