@@ -187,6 +187,11 @@ public class PuzzlePanel extends JPanel{
 
                 jLabel3.setLocation(levelTextX,y);
                 txtLevel.setLocation(levelNumX,y);
+                if (gamePanel.getLevel() == gamePanel.levelQuantity) {
+                    btnNextLevel.setVisible(false);
+                }else {
+                    btnNextLevel.setVisible(true);
+                }
             }
 
             @Override
