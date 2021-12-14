@@ -277,7 +277,10 @@ public class GamePanel extends JPanel implements MouseListener, MouseMotionListe
             if (this.undo.size() >= undoSize){
                 this.undo.removeFirst();
             }
-            this.undo.addLast(new Step(tubePop, tubeNum, this.top));
+            if (this.tubePop != tubeNum){
+                this.undo.addLast(new Step(tubePop, tubeNum, this.top));
+            }
+
 
             this.top = null;
             this.isDrag = false;
