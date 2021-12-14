@@ -25,10 +25,8 @@ public class VictoryDialog extends JPanel {
         btnContinue = new JLabel();
         jLabel1 = new JLabel();
 
-//        setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
-//        setUndecorated(true);
         setPreferredSize(new Dimension(1366, 768));
-//        setResizable(false);
+
         this.setLayout(new AbsoluteLayout());
 
         btnContinue.setIcon(new ImageIcon(Constant.DRAWABLE_PATH + "btn_continues.png"));
