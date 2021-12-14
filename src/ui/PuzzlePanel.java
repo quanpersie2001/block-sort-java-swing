@@ -15,6 +15,7 @@ public class PuzzlePanel extends JPanel{
     private JLabel btnReset;
     private JLabel btnSetting;
     private JLabel btnUndo;
+    private JLabel btnNotUndo;
     private JLabel jLabel3;
     private JLabel txtLevel;
     private JLabel btnPreLevel;
@@ -43,6 +44,7 @@ public class PuzzlePanel extends JPanel{
         btnSetting = new JLabel();
         btnReset = new JLabel();
         btnUndo = new JLabel();
+        btnNotUndo = new JLabel();
         btnPreLevel = new JLabel();
         btnNextLevel = new JLabel();
         jLabel3 = new JLabel();
@@ -85,8 +87,12 @@ public class PuzzlePanel extends JPanel{
             }
         });
 
+        btnNotUndo.setIcon(new ImageIcon(Constant.DRAWABLE_PATH + "btn_cant_undo.png"));
+        this.add(btnNotUndo, new org.netbeans.lib.awtextra.AbsoluteConstraints(160, 20, -1, -1));
+
         btnUndo.setIcon(new ImageIcon(Constant.DRAWABLE_PATH + "btn_undo.png"));
         this.add(btnUndo, new org.netbeans.lib.awtextra.AbsoluteConstraints(160, 20, -1, -1));
+        btnUndo.setVisible(false);
         btnUndo.addMouseListener(new MouseAdapter() {
             @Override
             public void mouseClicked(MouseEvent e) {
@@ -136,9 +142,16 @@ public class PuzzlePanel extends JPanel{
         this.gamePanel.addMouseListener(new MouseAdapter() {
             @Override
             public void mouseReleased(MouseEvent ev) {
-//                txtLevel.setText(String.valueOf(gamePanel.getLevel()));
                 if (gamePanel.isCompleteGame()) {
                     victoryDialog.showDialog();
+                }
+                if (gamePanel.isUndo()){
+                    btnUndo.setVisible(true);
+                    btnNotUndo.setVisible(false);
+                }else {
+                    btnNotUndo.setVisible(true);
+                    btnUndo.setVisible(false);
+
                 }
             }
         });
@@ -211,7 +224,20 @@ public class PuzzlePanel extends JPanel{
     }
 
     private void btnUndoMouseClick(MouseEvent ev) {
+        btnUndo.addMouseListener(new MouseAdapter() {
+            @Override
+            public void mouseClicked(MouseEvent e) {
+                if (gamePanel.isUndo()){
+                    btnUndo.setVisible(true);
+                    btnNotUndo.setVisible(false);
+                }else {
+                    btnNotUndo.setVisible(true);
+                    btnUndo.setVisible(false);
 
+                }
+            }
+        });
+        gamePanel.undo();
     }
 
     private void btnHomeMouseClick(MouseEvent ev) {

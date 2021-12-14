@@ -2,6 +2,7 @@ package ui;
 
 import DAO.TubeDAO;
 import model.Block;
+import model.Step;
 import model.Tube;
 import utils.Constant;
 import utils.Utils;
@@ -13,6 +14,7 @@ import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
 import java.awt.event.MouseMotionListener;
 import java.awt.geom.Rectangle2D;
+import java.util.LinkedList;
 import java.util.List;
 
 public class GamePanel extends JPanel implements MouseListener, MouseMotionListener {
@@ -26,6 +28,8 @@ public class GamePanel extends JPanel implements MouseListener, MouseMotionListe
     private int moveCount;
     public int levelQuantity;
     private int tubePop;
+    private LinkedList<Step> undo;
+    private static final int undoSize = 5;
 
     public GamePanel(){
         this.levelQuantity = Utils.getLevelQuantity();
@@ -42,6 +46,7 @@ public class GamePanel extends JPanel implements MouseListener, MouseMotionListe
     private void init(int level){
         TubeDAO tubeDAO = new TubeDAO(level);
         this.tubeList = tubeDAO.getTubeList();
+        this.undo = new LinkedList<>();
         this.size = tubeList.size();
         this.top = null;
         this.ax = 0.0;
@@ -122,6 +127,24 @@ public class GamePanel extends JPanel implements MouseListener, MouseMotionListe
         }
     }
 
+    public boolean isUndo() {
+        if (this.undo.size() == 0){
+            return false;
+        }
+        return true;
+    }
+
+    public void undo() {
+        if (isUndo()){
+            Step step = this.undo.getLast();
+            this.tubeList.get(step.getTubeTaken()).push(step.getBlockPop());
+            this.tubeList.get(step.getTubeGiven()).pop();
+            this.undo.removeLast();
+            this.moveCount--;
+            repaint();
+        }
+    }
+
     @Override
     protected void paintComponent(Graphics g) {
         super.paintComponent(g);
@@ -178,8 +201,8 @@ public class GamePanel extends JPanel implements MouseListener, MouseMotionListe
 
     @Override
     public void mousePressed(MouseEvent e) {
-        Point p= e.getPoint();
-        int n= currentTube(p);
+        Point p = e.getPoint();
+        int n = currentTube(p);
 //        System.out.println(n);
         if (n != -1){
             if(!this.tubeList.get(n).isEmpty()){
@@ -240,6 +263,11 @@ public class GamePanel extends JPanel implements MouseListener, MouseMotionListe
             }
             this.top.setFrame(x, y, this.top.getWidth(), this.top.getHeight());
             this.tubeList.get(tubeNum).push(this.top);
+
+            if (this.undo.size() >= undoSize){
+                this.undo.removeFirst();
+            }
+            this.undo.addLast(new Step(tubePop, tubeNum, this.top));
 
             this.top = null;
             this.isDrag = false;
