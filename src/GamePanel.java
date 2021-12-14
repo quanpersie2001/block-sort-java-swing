@@ -180,7 +180,7 @@ public class GamePanel extends JPanel implements MouseListener, MouseMotionListe
     public void mousePressed(MouseEvent e) {
         Point p= e.getPoint();
         int n= currentTube(p);
-        System.out.println(n);
+//        System.out.println(n);
         if (n != -1){
             if(!this.tubeList.get(n).isEmpty()){
                 this.top = this.tubeList.get(n).top();
@@ -246,7 +246,7 @@ public class GamePanel extends JPanel implements MouseListener, MouseMotionListe
             repaint();
         }
 
-        System.out.println("move:" + moveCount);
+//        System.out.println("move:" + moveCount);
     }
 
     @Override

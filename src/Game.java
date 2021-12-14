@@ -20,7 +20,7 @@ public class Game extends JFrame {
 
     public Game(){
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-        setUndecorated(true);
+//        setUndecorated(true);
         setPreferredSize(new java.awt.Dimension(1366, 768));
         getContentPane().setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
         setContentPane(new PuzzlePanel());

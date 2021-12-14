@@ -18,6 +18,7 @@ public class PuzzlePanel extends JPanel{
     private JLabel txtLevel;
     private JLabel btnPreLevel;
     private JLabel btnNextLevel;
+    private VictoryDialog victoryDialog;
     private GamePanel gamePanel;
     // End of variables declaration
 
@@ -26,6 +27,7 @@ public class PuzzlePanel extends JPanel{
         //Listener
         gamePanelListener();
         onChangeLevelListener();
+        dialogVictoryListener();
     }
 
     @Override
@@ -44,11 +46,12 @@ public class PuzzlePanel extends JPanel{
         jLabel3 = new JLabel();
         txtLevel = new JLabel();
         background = new JLabel();
+        victoryDialog = new VictoryDialog();
         gamePanel = new GamePanel();
 
         setMaximumSize(new java.awt.Dimension(1366, 768));
         setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
-
+        this.add(victoryDialog, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 1366, 768));
         this.add(gamePanel, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 100, 1366, 670));
 
         btnHome.setIcon(new ImageIcon(Constant.DRAWABLE_PATH + "btn_home.png"));
@@ -126,42 +129,22 @@ public class PuzzlePanel extends JPanel{
     }
 
     private void gamePanelListener(){
-        this.gamePanel.addMouseListener(new MouseListener() {
+        this.gamePanel.addMouseListener(new MouseAdapter() {
             @Override
-            public void mouseClicked(MouseEvent e) {
-
-            }
-
-            @Override
-            public void mousePressed(MouseEvent e) {
-            }
-
-            @Override
-            public void mouseReleased(MouseEvent e) {
-                txtLevel.setText(String.valueOf(gamePanel.getLevel()));
+            public void mouseReleased(MouseEvent ev) {
+//                txtLevel.setText(String.valueOf(gamePanel.getLevel()));
                 if (gamePanel.isCompleteGame()) {
-                    VictoryDialog dialog = new VictoryDialog();
-                    dialog.showDialog();
-                    dialog.btnContinue.addMouseListener(new MouseAdapter() {
-                        @Override
-                        public void mouseClicked(MouseEvent e) {
-                            gamePanel.nextLevel();
-                            dialog.closeDialog();
-                            txtLevel.setText(String.valueOf(gamePanel.getLevel()));
-                            repaint();
-                        }
-                    });
+                    victoryDialog.showDialog();
                 }
             }
-
+        });
+    }
+    private void dialogVictoryListener(){
+        this.victoryDialog.btnContinue.addMouseListener(new MouseAdapter() {
             @Override
-            public void mouseEntered(MouseEvent e) {
-
-            }
-
-            @Override
-            public void mouseExited(MouseEvent e) {
-
+            public void mouseClicked(MouseEvent ev) {
+                btnNextLevelMouseClick(ev);
+                victoryDialog.closeDialog();
             }
         });
     }
