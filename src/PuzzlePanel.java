@@ -1,3 +1,4 @@
+import ui.SettingDialog;
 import ui.VictoryDialog;
 import utils.Constant;
 import utils.MyColor;
@@ -20,6 +21,7 @@ public class PuzzlePanel extends JPanel{
     private JLabel btnNextLevel;
     private VictoryDialog victoryDialog;
     private GamePanel gamePanel;
+    private SettingDialog settingDialog;
     // End of variables declaration
 
     PuzzlePanel(){
@@ -47,11 +49,13 @@ public class PuzzlePanel extends JPanel{
         txtLevel = new JLabel();
         background = new JLabel();
         victoryDialog = new VictoryDialog();
+        settingDialog = new SettingDialog();
         gamePanel = new GamePanel();
 
         setMaximumSize(new java.awt.Dimension(1366, 768));
         setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
         this.add(victoryDialog, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 1366, 768));
+        this.add(settingDialog, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 1366, 768));
         this.add(gamePanel, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 100, 1366, 670));
 
         btnHome.setIcon(new ImageIcon(Constant.DRAWABLE_PATH + "btn_home.png"));
@@ -215,6 +219,6 @@ public class PuzzlePanel extends JPanel{
     }
 
     private void btnSettingMouseClick(MouseEvent ev) {
-
+        settingDialog.open();
     }
 }
