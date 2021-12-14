@@ -254,8 +254,13 @@ public class GamePanel extends JPanel implements MouseListener, MouseMotionListe
                         }
                     } else {
                         tubeNum = currentTube(new Point((int) this.ax, (int) this.ay));
-                        x = this.tubeList.get(tubeNum).getX() + 5;
-                        y = this.tubeList.get(tubeNum).top().getY() - 42;
+                        if (!this.tubeList.get(tubeNum).isEmpty()) {
+                            x = this.tubeList.get(tubeNum).getX() + 5;
+                            y = this.tubeList.get(tubeNum).top().getY() - 42;
+                        }else {
+                            x = this.tubeList.get(tubeNum).getX() + 5;
+                            y = this.tubeList.get(tubeNum).getY() + 148;
+                        }
 
                     }
                 } else {
