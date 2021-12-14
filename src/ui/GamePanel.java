@@ -142,6 +142,11 @@ public class GamePanel extends JPanel implements MouseListener, MouseMotionListe
             this.undo.removeLast();
             this.moveCount--;
             repaint();
+            try {
+                Thread.sleep(200);
+            } catch (InterruptedException e) {
+                e.printStackTrace();
+            }
         }
     }
 
