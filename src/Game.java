@@ -1,3 +1,5 @@
+import ui.PuzzlePanel;
+
 import javax.swing.*;
 import java.awt.*;
 
