@@ -1,14 +1,14 @@
+package ui;
+
 import DAO.TubeDAO;
 import model.Block;
 import model.Tube;
-import ui.VictoryDialog;
 import utils.Constant;
 import utils.Utils;
 
 import javax.swing.*;
 import java.awt.*;
 
-import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
 import java.awt.event.MouseMotionListener;

@@ -1,5 +1,5 @@
-import ui.SettingDialog;
-import ui.VictoryDialog;
+package ui;
+
 import utils.Constant;
 import utils.MyColor;
 import utils.Utils;
@@ -24,7 +24,7 @@ public class PuzzlePanel extends JPanel{
     private SettingDialog settingDialog;
     // End of variables declaration
 
-    PuzzlePanel(){
+    public PuzzlePanel(){
         initComponents();
         //Listener
         gamePanelListener();

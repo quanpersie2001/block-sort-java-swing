@@ -86,7 +86,7 @@ public class SettingDialog extends JPanel {
                 btnSound.setVisible(true);
             }
         });
-        
+
         if (!btnSound.isVisible()){
             // handle playing music
 
