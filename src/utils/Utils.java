@@ -61,16 +61,16 @@ public class Utils {
         int fileCount=directory.list().length;
         return fileCount;
     }
-    public static Font getMontserratFont(){
-        Font montserrat = null;
+    public static Font getFont(String style){
+        Font font = null;
         try {
-            montserrat = Font.createFont(Font.TRUETYPE_FONT, new File(Constant.FONT_PATH + "Montserrat-ExtraBold.ttf"));
+            font = Font.createFont(Font.TRUETYPE_FONT, new File(Constant.FONT_PATH + style + ".ttf"));
         } catch (FontFormatException e) {
             e.printStackTrace();
         } catch (IOException e) {
             e.printStackTrace();
         }
 
-        return montserrat;
+        return font;
     }
 }
