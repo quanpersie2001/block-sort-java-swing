@@ -2,6 +2,7 @@ package ui;
 
 import DAO.TubeDAO;
 import model.Block;
+import model.Data;
 import model.Step;
 import model.Tube;
 import utils.Constant;
@@ -30,14 +31,18 @@ public class GamePanel extends JPanel implements MouseListener, MouseMotionListe
     private int tubePop;
     private LinkedList<Step> undo;
     private static final int undoSize = 5;
+    private Data data;
 
-    public GamePanel(){
+    public GamePanel(Data data){
+        this.data = data;
         this.levelQuantity = Utils.getLevelQuantity();
-        this.level = 1;
+        this.level = this.data.getLevel();
         init(this.level);
         this.addMouseListener(this);
         this.addMouseMotionListener(this);
+        this.setOpaque(false);
     }
+
 
     public int getLevel(){
         return this.level;
@@ -183,7 +188,6 @@ public class GamePanel extends JPanel implements MouseListener, MouseMotionListe
             g1.setColor(top.getColor());
             g1.fill(top);
         }
-        this.setOpaque(false);
     }
 
     private void drawAllTube(Graphics2D g, int startTube, int endTube, int rowSize, int x, int y){
@@ -280,7 +284,6 @@ public class GamePanel extends JPanel implements MouseListener, MouseMotionListe
             if (this.tubePop != tubeNum){
                 this.undo.addLast(new Step(tubePop, tubeNum, this.top));
             }
-
 
             this.top = null;
             this.isDrag = false;

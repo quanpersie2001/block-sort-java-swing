@@ -21,7 +21,6 @@ public class SettingDialog extends JPanel {
         initComponents();
         setBackground(new Color(0,0,0,100));
         setVisible(false);
-        closeClickListener();
         soundClickListener();
     }
     private void initComponents() {
@@ -52,6 +51,12 @@ public class SettingDialog extends JPanel {
 
         btnClose.setIcon(new ImageIcon(Constant.DRAWABLE_PATH + "btn_x.png"));
         add(btnClose, new org.netbeans.lib.awtextra.AbsoluteConstraints(920, 120, -1, -1));
+        btnClose.addMouseListener(new MouseAdapter() {
+            @Override
+            public void mouseClicked(MouseEvent e) {
+                close();
+            }
+        });
 
         bgSetting.setIcon(new ImageIcon(Constant.DRAWABLE_PATH + "bg_setting.png"));
         add(bgSetting, new org.netbeans.lib.awtextra.AbsoluteConstraints(396, 88, -1, -1));
@@ -61,13 +66,8 @@ public class SettingDialog extends JPanel {
         setVisible(true);
     }
 
-    public void closeClickListener(){
-        this.btnClose.addMouseListener(new MouseAdapter() {
-            @Override
-            public void mouseClicked(MouseEvent e) {
-                setVisible(false);
-            }
-        });
+    public void close(){
+        setVisible(false);
     }
 
     public void soundClickListener(){

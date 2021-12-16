@@ -1,12 +1,16 @@
 package ui;
 
+import DAO.DataDAO;
+import model.Data;
 import utils.Constant;
+import utils.FontStyle;
 import utils.MyColor;
 import utils.Utils;
 
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.*;
+import java.util.List;
 
 public class PuzzlePanel extends JPanel{
     // Variables declaration - do not modify
@@ -23,9 +27,14 @@ public class PuzzlePanel extends JPanel{
     private VictoryDialog victoryDialog;
     private GamePanel gamePanel;
     private SettingDialog settingDialog;
+    private Data data;
+    private DataDAO dataDAO;
+    private List<Data> dataList;
     // End of variables declaration
 
-    public PuzzlePanel(){
+    public PuzzlePanel(Data data){
+        this.dataDAO = new DataDAO();
+        this.data = data;
         initComponents();
         //Listener
         gamePanelListener();
@@ -52,7 +61,7 @@ public class PuzzlePanel extends JPanel{
         background = new JLabel();
         victoryDialog = new VictoryDialog();
         settingDialog = new SettingDialog();
-        gamePanel = new GamePanel();
+        gamePanel = new GamePanel(this.data);
 
         setMaximumSize(new java.awt.Dimension(1366, 768));
         setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
@@ -108,9 +117,6 @@ public class PuzzlePanel extends JPanel{
                 btnPreLevelMouseClick(e);
             }
         });
-        if (this.gamePanel.getLevel() == 1){
-            btnPreLevel.setVisible(false);
-        }
 
         btnNextLevel.setIcon(new ImageIcon(Constant.DRAWABLE_PATH + "btn_next_level.png"));
         this.add(btnNextLevel, new org.netbeans.lib.awtextra.AbsoluteConstraints(860, 40, -1, -1));
@@ -121,7 +127,7 @@ public class PuzzlePanel extends JPanel{
             }
         });
 
-        Font montserrat = Utils.getMontserratFont();
+        Font montserrat = Utils.getFont(FontStyle.EXTRA_BOLD);
 
         jLabel3.setFont(montserrat.deriveFont(55f));
         jLabel3.setForeground(MyColor.WHITE);
@@ -144,6 +150,8 @@ public class PuzzlePanel extends JPanel{
             public void mouseReleased(MouseEvent ev) {
                 if (gamePanel.isCompleteGame()) {
                     victoryDialog.showDialog();
+                    dataDAO.update(data.getName(), gamePanel.getLevel());
+
                 }
                 if (gamePanel.isUndo()){
                     btnUndo.setVisible(true);
@@ -187,7 +195,7 @@ public class PuzzlePanel extends JPanel{
 
                 jLabel3.setLocation(levelTextX,y);
                 txtLevel.setLocation(levelNumX,y);
-                if (gamePanel.getLevel() == gamePanel.levelQuantity) {
+                if (gamePanel.getLevel() >= data.getLevel() || gamePanel.getLevel() == gamePanel.levelQuantity) {
                     btnNextLevel.setVisible(false);
                 }else {
                     btnNextLevel.setVisible(true);
@@ -210,10 +218,6 @@ public class PuzzlePanel extends JPanel{
         this.gamePanel.reset();
     }
     private void btnNextLevelMouseClick(MouseEvent ev) {
-        /*if ( this.gamePanel.getLevel() > this.gamePanel.levelQuantity){
-            btnNextLevel.setVisible(true);
-        }*/
-
         this.gamePanel.nextLevel();
         this.txtLevel.setText(String.valueOf(this.gamePanel.getLevel()));
     }
@@ -241,7 +245,11 @@ public class PuzzlePanel extends JPanel{
     }
 
     private void btnHomeMouseClick(MouseEvent ev) {
-
+        Container parent =this.getParent();
+        parent.remove(this);
+        parent.add(new HomePanel());
+        parent.repaint();
+        parent.revalidate();
     }
 
     private void btnSettingMouseClick(MouseEvent ev) {
