@@ -1,4 +1,8 @@
+import org.netbeans.lib.awtextra.AbsoluteConstraints;
+import org.netbeans.lib.awtextra.AbsoluteLayout;
 import ui.panel.HomePanel;
+import utils.Constant;
+import utils.Utils;
 
 import javax.swing.*;
 import java.awt.*;
@@ -10,6 +14,7 @@ public class Game extends JFrame {
 
     public Game(){
         initComponent();
+        setTitle("Block Sort Puzzle by QTT");
     }
 
     private void initComponent(){
@@ -20,13 +25,15 @@ public class Game extends JFrame {
         setSize(new Dimension(1370, 800));
         setLocationRelativeTo(null);
         setResizable(false);
-        getContentPane().setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
+        ImageIcon icon = new ImageIcon(Constant.DRAWABLE_PATH + "ic_game.png");
+        setIconImage(icon.getImage());
+        getContentPane().setLayout(new AbsoluteLayout());
 
-        layeredPane.setPreferredSize(new java.awt.Dimension(1366, 768));
+        layeredPane.setPreferredSize(new Dimension(1366, 768));
         layeredPane.setLayout(new CardLayout());
         layeredPane.add(homePanel, 1);
 
-        getContentPane().add(layeredPane, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, -1, -1));
+        getContentPane().add(layeredPane, new AbsoluteConstraints(0, 0, -1, -1));
         pack();
     }
 
