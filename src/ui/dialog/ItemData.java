@@ -9,6 +9,8 @@ import utils.Utils;
 
 import javax.swing.*;
 import java.awt.*;
+import java.awt.event.MouseAdapter;
+import java.awt.event.MouseEvent;
 
 public class ItemData extends JPanel implements ListCellRenderer<Data> {
 
@@ -16,12 +18,12 @@ public class ItemData extends JPanel implements ListCellRenderer<Data> {
     private JLabel nameLabel;
     private JLabel levelLabel;
 
-    public ItemData(){
+    public ItemData() {
         initComponents();
         setOpaque(false);
     }
 
-    public void initComponents(){
+    public void initComponents() {
         bgItem = new JLabel();
         nameLabel = new JLabel();
         levelLabel = new JLabel();
