@@ -2,7 +2,7 @@ package utils;
 
 import java.awt.*;
 
-public class MyColor {
+public class CustomizeColor {
     public static final Color RED = new Color(227, 38, 54);
     public static final Color BLUE = new Color(76, 111, 252);
     public static final Color GREEN = new Color(56, 182, 37);

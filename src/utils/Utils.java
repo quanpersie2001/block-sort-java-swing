@@ -11,47 +11,47 @@ public class Utils {
     public static Block makeBlock(String s){
         switch (s) {
             case "r":
-                return new Block(MyColor.RED);
+                return new Block(CustomizeColor.RED);
             case "b":
-                return new Block(MyColor.BLUE);
+                return new Block(CustomizeColor.BLUE);
             case "g":
-                return new Block(MyColor.GREEN);
+                return new Block(CustomizeColor.GREEN);
             case "y":
-                return new Block(MyColor.YELLOW);
+                return new Block(CustomizeColor.YELLOW);
             case "c":
-                return new Block(MyColor.CYAN);
+                return new Block(CustomizeColor.CYAN);
             case "o":
-                return new Block(MyColor.ORANGE);
+                return new Block(CustomizeColor.ORANGE);
             case "p":
-                return new Block(MyColor.PINK);
+                return new Block(CustomizeColor.PINK);
             case "w":
-                return new Block(MyColor.WHITE);
+                return new Block(CustomizeColor.WHITE);
             case "v":
-                return new Block(MyColor.VIOLET);
+                return new Block(CustomizeColor.VIOLET);
             case "n":
-                return new Block(MyColor.NAVY);
+                return new Block(CustomizeColor.NAVY);
             case "m":
-                return new Block(MyColor.MAGENTA);
+                return new Block(CustomizeColor.MAGENTA);
             case "a":
-                return new Block(MyColor.AZURE);
+                return new Block(CustomizeColor.AZURE);
             case "d":
-                return new Block(MyColor.CORAL);
+                return new Block(CustomizeColor.CORAL);
             case "e":
-                return new Block(MyColor.EGGPLANT);
+                return new Block(CustomizeColor.EGGPLANT);
             case "f":
-                return new Block(MyColor.FERN);
+                return new Block(CustomizeColor.FERN);
             case "h":
-                return new Block(MyColor.HELIOTROPE);
+                return new Block(CustomizeColor.HELIOTROPE);
             case "k":
-                return new Block(MyColor.KHAKI);
+                return new Block(CustomizeColor.KHAKI);
             case "i":
-                return new Block(MyColor.INDIGO);
+                return new Block(CustomizeColor.INDIGO);
             case "j":
-                return new Block(MyColor.JADE);
+                return new Block(CustomizeColor.JADE);
             case "t":
-                return new Block(MyColor.TEAL);
+                return new Block(CustomizeColor.TEAL);
             case "l":
-                return new Block(MyColor.LIME);
+                return new Block(CustomizeColor.LIME);
             default:
                 return null;
         }

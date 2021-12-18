@@ -1,4 +1,4 @@
-package ui;
+package ui.dialog;
 
 import org.netbeans.lib.awtextra.AbsoluteConstraints;
 import org.netbeans.lib.awtextra.AbsoluteLayout;
@@ -12,8 +12,6 @@ public class VictoryDialog extends JPanel {
     boolean show;
     private JLabel jLabel1;
     public JLabel btnContinue;
-
-
 
     public VictoryDialog(){
         init();

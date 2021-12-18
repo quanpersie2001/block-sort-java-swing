@@ -1,7 +1,9 @@
-package ui;
+package ui.dialog;
 
 import DAO.DataDAO;
 import model.Data;
+import ui.popup.DeletePopUp;
+import ui.panel.PuzzlePanel;
 import utils.Constant;
 
 import javax.swing.*;

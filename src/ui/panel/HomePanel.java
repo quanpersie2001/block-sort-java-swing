@@ -1,5 +1,7 @@
-package ui;
+package ui.panel;
 
+import ui.dialog.EditNameDialog;
+import ui.dialog.LoadGameDialog;
 import utils.Constant;
 
 import javax.swing.*;
@@ -63,9 +65,11 @@ public class HomePanel extends JPanel {
         bgHome.setIcon(new ImageIcon(Constant.DRAWABLE_PATH + "bg_home.jpg"));
         add(bgHome, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, -1, -1));
     }
+
     public void openEditName(){
         editNameDialog.open();
     }
+
     public void openLoadGame(){
 
     }

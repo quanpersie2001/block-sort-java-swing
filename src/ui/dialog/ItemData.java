@@ -1,4 +1,4 @@
-package ui;
+package ui.dialog;
 
 import model.Data;
 import org.netbeans.lib.awtextra.AbsoluteConstraints;
@@ -9,8 +9,6 @@ import utils.Utils;
 
 import javax.swing.*;
 import java.awt.*;
-import java.awt.event.MouseAdapter;
-import java.awt.event.MouseEvent;
 
 public class ItemData extends JPanel implements ListCellRenderer<Data> {
 

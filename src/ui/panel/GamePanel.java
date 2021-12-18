@@ -1,4 +1,4 @@
-package ui;
+package ui.panel;
 
 import DAO.TubeDAO;
 import model.Block;
@@ -124,6 +124,7 @@ public class GamePanel extends JPanel implements MouseListener, MouseMotionListe
         init(this.level);
         repaint();
     }
+
     public void preLevel() {
         if (this.level > 1){
             this.level--;

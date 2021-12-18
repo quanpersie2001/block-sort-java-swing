@@ -1,7 +1,9 @@
-package ui;
+package ui.dialog;
 
 import DAO.DataDAO;
 import model.Data;
+import org.netbeans.lib.awtextra.AbsoluteConstraints;
+import ui.panel.PuzzlePanel;
 import utils.Constant;
 import utils.FontStyle;
 import utils.Utils;
@@ -20,6 +22,7 @@ public class EditNameDialog extends JPanel {
     private JLabel alertLabel;
     private DataDAO dataDAO;
     private List<Data> dataList;
+
     public EditNameDialog() {
         initComponents();
         this.dataDAO = new DataDAO();
@@ -45,16 +48,16 @@ public class EditNameDialog extends JPanel {
         edtName.setForeground(new Color(102, 43, 1));
         edtName.setOpaque(false);
         edtName.setBorder(null);
-        add(edtName, new org.netbeans.lib.awtextra.AbsoluteConstraints(480, 360, 390, 70));
+        add(edtName, new AbsoluteConstraints(480, 360, 390, 70));
 
         Font mediumItalic = Utils.getFont(FontStyle.MEDIUM_ITALIC);
-        alertLabel.setFont(mediumItalic.deriveFont(16f)); // NOI18N
+        alertLabel.setFont(mediumItalic.deriveFont(16f));
         alertLabel.setForeground(new Color(255, 39, 39));
-        add(alertLabel, new org.netbeans.lib.awtextra.AbsoluteConstraints(470, 440, 420, -1));
+        add(alertLabel, new AbsoluteConstraints(470, 440, 420, -1));
         alertLabel.setVisible(false);
 
         btnOk.setIcon(new ImageIcon(Constant.DRAWABLE_PATH + "btn_oke.png"));
-        add(btnOk, new org.netbeans.lib.awtextra.AbsoluteConstraints(580, 470, -1, -1));
+        add(btnOk, new AbsoluteConstraints(580, 470, -1, -1));
         btnOk.addMouseListener(new MouseAdapter() {
             @Override
             public void mouseClicked(MouseEvent e) {
@@ -63,7 +66,7 @@ public class EditNameDialog extends JPanel {
         });
 
         btnX.setIcon(new ImageIcon(Constant.DRAWABLE_PATH + "btn_x.png"));
-        add(btnX, new org.netbeans.lib.awtextra.AbsoluteConstraints(910, 220, -1, -1));
+        add(btnX, new AbsoluteConstraints(910, 220, -1, -1));
         btnX.addMouseListener(new MouseAdapter() {
             @Override
             public void mouseClicked(MouseEvent e) {
@@ -72,7 +75,7 @@ public class EditNameDialog extends JPanel {
         });
 
         bgInputName.setIcon(new ImageIcon(Constant.DRAWABLE_PATH + "bg_input_name.png"));
-        add(bgInputName, new org.netbeans.lib.awtextra.AbsoluteConstraints(390, 190, -1, -1));
+        add(bgInputName, new AbsoluteConstraints(390, 190, -1, -1));
 
     }
     public void open(){
