@@ -5,10 +5,7 @@ import model.Data;
 import org.netbeans.lib.awtextra.AbsoluteConstraints;
 import ui.dialog.SettingDialog;
 import ui.dialog.VictoryDialog;
-import utils.Constant;
-import utils.FontStyle;
-import utils.CustomizeColor;
-import utils.Utils;
+import utils.*;
 
 import javax.swing.*;
 import java.awt.*;
@@ -27,14 +24,16 @@ public class PuzzlePanel extends JPanel{
     private JLabel btnPreLevel;
     private JLabel btnNextLevel;
     private VictoryDialog victoryDialog;
-    private GamePanel gamePanel;
+    public GamePanel gamePanel;
     private SettingDialog settingDialog;
     private Data data;
     private DataDAO dataDAO;
+    private Boolean sound;
 
 
-    public PuzzlePanel(Data data){
-        this.dataDAO = new DataDAO();
+    public PuzzlePanel(Data data, Boolean sound, DataDAO dataDAO){
+        this.sound = sound;
+        this.dataDAO = dataDAO;
         this.data = data;
         initComponents();
         //Listener
@@ -61,8 +60,8 @@ public class PuzzlePanel extends JPanel{
         txtLevel = new JLabel();
         background = new JLabel();
         victoryDialog = new VictoryDialog();
-        settingDialog = new SettingDialog();
-        gamePanel = new GamePanel(this.data);
+        settingDialog = new SettingDialog(this.sound);
+        gamePanel = new GamePanel(this.data, this.sound);
 
         setMaximumSize(new java.awt.Dimension(1366, 768));
 
@@ -152,9 +151,10 @@ public class PuzzlePanel extends JPanel{
             @Override
             public void mouseReleased(MouseEvent ev) {
                 if (gamePanel.isCompleteGame()) {
+                    Sounds.victorySound(sound);
                     victoryDialog.showDialog();
-                    dataDAO.update(data.getName(), gamePanel.getLevel());
-
+                    data.setLevel(gamePanel.getLevel());
+                    dataDAO.update(data);
                 }
                 if (gamePanel.isUndo()){
                     btnUndo.setVisible(true);
@@ -172,6 +172,7 @@ public class PuzzlePanel extends JPanel{
         this.victoryDialog.btnContinue.addMouseListener(new MouseAdapter() {
             @Override
             public void mouseClicked(MouseEvent ev) {
+                Sounds.buttonSound(sound);
                 btnNextLevelMouseClick(ev);
                 victoryDialog.closeDialog();
             }
@@ -199,7 +200,7 @@ public class PuzzlePanel extends JPanel{
 
                 jLabel3.setLocation(levelTextX,y);
                 txtLevel.setLocation(levelNumX,y);
-                if (gamePanel.getLevel() >= data.getLevel() || gamePanel.getLevel() == gamePanel.levelQuantity) {
+                if (gamePanel.getLevel() > data.getLevel() || gamePanel.getLevel() == gamePanel.levelQuantity) {
                     btnNextLevel.setVisible(false);
                 }else {
                     btnNextLevel.setVisible(true);
@@ -219,15 +220,18 @@ public class PuzzlePanel extends JPanel{
     }
 
     private void btnResetMouseClick(MouseEvent ev) {
+        Sounds.buttonSound(sound);
         this.gamePanel.reset();
     }
 
     private void btnNextLevelMouseClick(MouseEvent ev) {
+        Sounds.buttonSound(sound);
         this.gamePanel.nextLevel();
         this.txtLevel.setText(String.valueOf(this.gamePanel.getLevel()));
     }
 
     private void btnPreLevelMouseClick(MouseEvent ev) {
+        Sounds.buttonSound(sound);
         this.gamePanel.preLevel();
         this.txtLevel.setText(String.valueOf(this.gamePanel.getLevel()));
     }
@@ -236,6 +240,7 @@ public class PuzzlePanel extends JPanel{
         btnUndo.addMouseListener(new MouseAdapter() {
             @Override
             public void mouseClicked(MouseEvent e) {
+                Sounds.buttonSound(sound);
                 if (gamePanel.isUndo()){
                     btnUndo.setVisible(true);
                     btnNotUndo.setVisible(false);
@@ -250,14 +255,20 @@ public class PuzzlePanel extends JPanel{
     }
 
     private void btnHomeMouseClick(MouseEvent ev) {
+        Sounds.buttonSound(sound);
         Container parent =this.getParent();
         parent.remove(this);
-        parent.add(new HomePanel());
+        parent.add(new HomePanel(this.sound, this.dataDAO));
         parent.repaint();
         parent.revalidate();
     }
 
     private void btnSettingMouseClick(MouseEvent ev) {
+        Sounds.buttonSound(sound);
         settingDialog.open();
+    }
+
+    public void setSound(Boolean sound) {
+        this.sound = sound;
     }
 }

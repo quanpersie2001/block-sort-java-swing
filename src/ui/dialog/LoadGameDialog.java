@@ -5,6 +5,7 @@ import model.Data;
 import ui.popup.DeletePopUp;
 import ui.panel.PuzzlePanel;
 import utils.Constant;
+import utils.Sounds;
 
 import javax.swing.*;
 import java.awt.*;
@@ -24,10 +25,12 @@ public class LoadGameDialog extends JPanel {
     private JLabel btnClose;
     private DefaultListModel<Data> model;
     private DeletePopUp deletePopUp;
+    private Boolean sound;
 
-    public LoadGameDialog(){
-        this.dataDAO = new DataDAO();
-        this.dataList = dataDAO.read();
+    public LoadGameDialog(Boolean sound, DataDAO dataDAO){
+        this.sound = sound;
+        this.dataDAO = dataDAO;
+        this.dataList = dataDAO.dataList;
         model = new DefaultListModel<>();
         initComponents();
         setBackground(new Color(0,0,0,100));
@@ -63,6 +66,8 @@ public class LoadGameDialog extends JPanel {
         btnClose.addMouseListener(new MouseAdapter() {
             @Override
             public void mouseClicked(MouseEvent e) {
+                Sounds.buttonSound(sound);
+                deletePopUp.close();
                 close();
             }
         });
@@ -87,7 +92,7 @@ public class LoadGameDialog extends JPanel {
     public void launchGame(Data data){
         Container parent = this.getParent().getParent();
         parent.removeAll();
-        parent.add(new PuzzlePanel(data), 2);
+        parent.add(new PuzzlePanel(data, this.sound, this.dataDAO), 2);
         this.revalidate();
         this.repaint();
     }
@@ -109,6 +114,7 @@ public class LoadGameDialog extends JPanel {
 
                     if (r.contains(e.getPoint())) {
                         if (SwingUtilities.isLeftMouseButton(e)) {
+                            Sounds.buttonSound(sound);
                             launchGame(data);
                         }else if (SwingUtilities.isRightMouseButton(e)){
                             deletePopUp.setBounds(e.getX() + 420, e.getY() + 206, 123, 50);
@@ -134,4 +140,5 @@ public class LoadGameDialog extends JPanel {
             }
         });
     }
+
 }

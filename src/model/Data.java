@@ -26,4 +26,9 @@ public class Data implements Serializable {
     public void setLevel(int level) {
         this.level = level;
     }
+
+    @Override
+    public String toString() {
+        return this.name + "-" + this.level;
+    }
 }

@@ -45,7 +45,7 @@ public class ItemData extends JPanel implements ListCellRenderer<Data> {
     @Override
     public Component getListCellRendererComponent(JList<? extends Data> list, Data value, int index, boolean isSelected, boolean cellHasFocus) {
         this.nameLabel.setText(value.getName());
-        this.levelLabel.setText("LV." + String.valueOf(value.getLevel()));
+        this.levelLabel.setText("LV." + String.valueOf(value.getLevel() + 1));
         return this;
     }
 }

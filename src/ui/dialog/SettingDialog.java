@@ -1,7 +1,9 @@
 package ui.dialog;
 
+import ui.frame.Game;
 import org.netbeans.lib.awtextra.AbsoluteConstraints;
 import org.netbeans.lib.awtextra.AbsoluteLayout;
+import ui.panel.PuzzlePanel;
 import utils.Constant;
 
 import javax.swing.*;
@@ -17,9 +19,12 @@ public class SettingDialog extends JPanel {
     private JLabel btnMute;
     private JLabel btnQuit;
     private JLabel btnSound;
+    private Game gameParent;
+    private Boolean sound;
 
 
-    public SettingDialog() {
+    public SettingDialog(Boolean sound) {
+        this.sound = sound;
         initComponents();
         setBackground(new Color(0,0,0,100));
         setVisible(false);
@@ -39,6 +44,12 @@ public class SettingDialog extends JPanel {
 
         btnQuit.setIcon(new ImageIcon(Constant.DRAWABLE_PATH + "btn_quit.png"));
         add(btnQuit, new AbsoluteConstraints(550, 530, -1, -1));
+        btnQuit.addMouseListener(new MouseAdapter() {
+            @Override
+            public void mouseClicked(MouseEvent e) {
+                quitClickListener();
+            }
+        });
 
         btnHelp.setIcon(new ImageIcon(Constant.DRAWABLE_PATH + "btn_help.png"));
         add(btnHelp, new AbsoluteConstraints(550, 390, -1, -1));
@@ -62,10 +73,19 @@ public class SettingDialog extends JPanel {
 
         bgSetting.setIcon(new ImageIcon(Constant.DRAWABLE_PATH + "bg_setting.png"));
         add(bgSetting, new AbsoluteConstraints(396, 88, -1, -1));
+
+        if (this.sound) {
+            this.btnMute.setVisible(true);
+            this.btnSound.setVisible(false);
+        }else {
+            btnMute.setVisible(false);
+            btnSound.setVisible(true);
+        }
     }
 
     public void open(){
         setVisible(true);
+        repaint();
     }
 
     public void close(){
@@ -78,31 +98,42 @@ public class SettingDialog extends JPanel {
             public void mouseClicked(MouseEvent e) {
                 btnMute.setVisible(true);
                 btnSound.setVisible(false);
+                onSound();
             }
         });
 
         btnMute.addMouseListener(new MouseAdapter() {
             @Override
             public void mouseClicked(MouseEvent e) {
+                offSound();
                 btnMute.setVisible(false);
                 btnSound.setVisible(true);
             }
         });
 
-        if (!btnSound.isVisible()){
-            // handle playing music
-
-        } else {
-            // handle mute music
-
-        }
     }
 
     public void quitClickListener(){
-
+        System.exit(1);
     }
     public void helpClickListener(){
 
     }
 
+    public void onSound(){
+        PuzzlePanel parent = (PuzzlePanel) this.getParent();
+        this.sound = true;
+        parent.setSound(true);
+        parent.gamePanel.setSound(true);
+        gameParent = (Game) SwingUtilities.getWindowAncestor(this.getParent().getParent());
+        this.gameParent.onSound();
+    }
+    public void offSound(){
+        PuzzlePanel parent = (PuzzlePanel) this.getParent();
+        this.sound = false;
+        parent.setSound(false);
+        parent.gamePanel.setSound(false);
+        gameParent = (Game) SwingUtilities.getWindowAncestor(this.getParent().getParent());
+        this.gameParent.offSound();
+    }
 }

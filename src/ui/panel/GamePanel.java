@@ -6,6 +6,7 @@ import model.Data;
 import model.Step;
 import model.Tube;
 import utils.Constant;
+import utils.Sounds;
 import utils.Utils;
 
 import javax.swing.*;
@@ -32,11 +33,13 @@ public class GamePanel extends JPanel implements MouseListener, MouseMotionListe
     private LinkedList<Step> undo;
     private static final int undoSize = 5;
     private Data data;
+    private Boolean sound;
 
-    public GamePanel(Data data){
+    public GamePanel(Data data, Boolean sound){
+        this.sound = sound;
         this.data = data;
         this.levelQuantity = Utils.getLevelQuantity();
-        this.level = this.data.getLevel();
+        this.level = this.data.getLevel() + 1;
         init(this.level);
         this.addMouseListener(this);
         this.addMouseMotionListener(this);
@@ -211,6 +214,7 @@ public class GamePanel extends JPanel implements MouseListener, MouseMotionListe
 
     @Override
     public void mousePressed(MouseEvent e) {
+        Sounds.dragSound(sound);
         Point p = e.getPoint();
         int n = currentTube(p);
 //        System.out.println(n);
@@ -258,6 +262,7 @@ public class GamePanel extends JPanel implements MouseListener, MouseMotionListe
                             this.moveCount++;
                         }
                     } else {
+                        Sounds.failSound(sound);
                         tubeNum = currentTube(new Point((int) this.ax, (int) this.ay));
                         if (!this.tubeList.get(tubeNum).isEmpty()) {
                             x = this.tubeList.get(tubeNum).getX() + 5;
@@ -317,5 +322,9 @@ public class GamePanel extends JPanel implements MouseListener, MouseMotionListe
     @Override
     public void mouseMoved(MouseEvent e) {
 
+    }
+
+    public void setSound(Boolean sound) {
+        this.sound = sound;
     }
 }

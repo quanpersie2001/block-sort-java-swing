@@ -3,9 +3,11 @@ package ui.dialog;
 import DAO.DataDAO;
 import model.Data;
 import org.netbeans.lib.awtextra.AbsoluteConstraints;
+import org.netbeans.lib.awtextra.AbsoluteLayout;
 import ui.panel.PuzzlePanel;
 import utils.Constant;
 import utils.FontStyle;
+import utils.Sounds;
 import utils.Utils;
 
 import javax.swing.*;
@@ -22,11 +24,13 @@ public class EditNameDialog extends JPanel {
     private JLabel alertLabel;
     private DataDAO dataDAO;
     private List<Data> dataList;
+    private Boolean sound;
 
-    public EditNameDialog() {
+    public EditNameDialog(Boolean sound, DataDAO dataDAO) {
+        this.sound = sound;
         initComponents();
-        this.dataDAO = new DataDAO();
-        dataList = dataDAO.read();
+        this.dataDAO = dataDAO;
+        dataList = dataDAO.dataList;
         setBackground(new Color(0, 0, 0, 100));
         setVisible(false);
     }
@@ -41,7 +45,7 @@ public class EditNameDialog extends JPanel {
 
         setMaximumSize(new Dimension(1366, 768));
         setMinimumSize(new Dimension(1366, 768));
-        setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
+        setLayout(new AbsoluteLayout());
 
         Font semiBold = Utils.getFont(FontStyle.SEMI_BOLD);
         edtName.setFont(semiBold.deriveFont(18f));
@@ -70,6 +74,7 @@ public class EditNameDialog extends JPanel {
         btnX.addMouseListener(new MouseAdapter() {
             @Override
             public void mouseClicked(MouseEvent e) {
+                Sounds.buttonSound(sound);
                 close();
             }
         });
@@ -90,20 +95,23 @@ public class EditNameDialog extends JPanel {
         if (dataName.length()  < 6 || dataName.length() > 12){
             alertLabel.setVisible(true);
             alertLabel.setText("Name must be 6-12 characters!");
+            Sounds.failSound(sound);
         }else {
             if (dataDAO.checkNameExist(dataName)){
                 alertLabel.setVisible(true);
                 alertLabel.setText("This name already exist!");
+                Sounds.failSound(sound);
             } else {
+                Sounds.buttonSound(sound);
                 alertLabel.setVisible(false);
-                Data data = new Data(dataName, 1);
+                Data data = new Data(dataName, 0);
                 edtName.setText("");
                 close();
                 Container parent = this.getParent().getParent();
                 parent.removeAll();
                 dataList.add(data);
                 dataDAO.write(dataList);
-                parent.add(new PuzzlePanel(data), 2);
+                parent.add(new PuzzlePanel(data, this.sound, this.dataDAO), 2);
                 this.revalidate();
                 this.repaint();
             }

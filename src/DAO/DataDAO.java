@@ -8,18 +8,20 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class DataDAO {
+    private File file;
+    public List<Data> dataList;
 
-    private List<Data> dataList;
-
-    public List<Data> getDataList(){
-        return this.dataList;
+    public DataDAO(){
+        file = new File(Constant.DATA);
+        dataList = read();
     }
 
     public void write(List<Data> dataList) {
+        this.dataList = dataList;
         FileOutputStream fileOutputStream = null;
         ObjectOutputStream objectOutputStream = null;
         try {
-            fileOutputStream = new FileOutputStream(new File(Constant.DATA));
+            fileOutputStream = new FileOutputStream(file);
             objectOutputStream = new ObjectOutputStream(fileOutputStream);
             objectOutputStream.writeObject(dataList);
         } catch (FileNotFoundException e) {
@@ -37,7 +39,6 @@ public class DataDAO {
         FileInputStream fileInputStream = null;
         ObjectInputStream objectInputStream = null;
         try {
-            File file = new File(Constant.DATA);
             if(file.length() == 0){
                 dataList = new ArrayList<>();
             }
@@ -59,7 +60,7 @@ public class DataDAO {
         return dataList;
     }
 
-    private void closeStream(InputStream is) {
+    public void closeStream(InputStream is) {
         if (is != null) {
             try {
                 is.close();
@@ -69,7 +70,7 @@ public class DataDAO {
         }
     }
 
-    private void closeStream(OutputStream os) {
+    public void closeStream(OutputStream os) {
         if (os != null) {
             try {
                 os.close();
@@ -88,11 +89,11 @@ public class DataDAO {
         return false;
     }
 
-    public void update(String name, int level){
-        List<Data> dataList =read();
-        for (Data data : dataList) {
-            if (data.getName().equals(name)){
-                data.setLevel(level);
+    public void update(Data data){
+        List<Data> dataList = read();
+        for (Data data1 : dataList) {
+            if (data1.getName().equals(data.getName())){
+                data1.setLevel(data.getLevel());
                 write(dataList);
             }
         }
