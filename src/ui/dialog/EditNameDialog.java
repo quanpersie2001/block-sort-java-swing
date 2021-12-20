@@ -10,8 +10,15 @@ import utils.FontStyle;
 import utils.Sounds;
 import utils.Utils;
 
-import javax.swing.*;
-import java.awt.*;
+
+import javax.swing.ImageIcon;
+import javax.swing.JLabel;
+import javax.swing.JPanel;
+import javax.swing.JTextField;
+import java.awt.Color;
+import java.awt.Container;
+import java.awt.Dimension;
+import java.awt.Font;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 import java.util.List;

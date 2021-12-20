@@ -1,7 +1,6 @@
 package ui.frame;
 
 import DAO.DataDAO;
-import model.Data;
 import org.netbeans.lib.awtextra.AbsoluteConstraints;
 import org.netbeans.lib.awtextra.AbsoluteLayout;
 import ui.panel.HomePanel;
@@ -11,10 +10,12 @@ import javax.sound.sampled.AudioInputStream;
 import javax.sound.sampled.AudioSystem;
 import javax.sound.sampled.Clip;
 import javax.sound.sampled.FloatControl;
-import javax.swing.*;
-import java.awt.*;
+import javax.swing.ImageIcon;
+import javax.swing.JFrame;
+import javax.swing.JLayeredPane;
+import java.awt.CardLayout;
+import java.awt.Dimension;
 import java.io.File;
-import java.util.List;
 
 public class Game extends JFrame {
 

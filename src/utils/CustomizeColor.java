@@ -1,6 +1,6 @@
 package utils;
 
-import java.awt.*;
+import java.awt.Color;
 
 public class CustomizeColor {
     public static final Color RED = new Color(227, 38, 54);

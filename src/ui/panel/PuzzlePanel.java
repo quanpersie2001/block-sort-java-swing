@@ -5,11 +5,22 @@ import model.Data;
 import org.netbeans.lib.awtextra.AbsoluteConstraints;
 import ui.dialog.SettingDialog;
 import ui.dialog.VictoryDialog;
-import utils.*;
+import utils.Constant;
+import utils.CustomizeColor;
+import utils.FontStyle;
+import utils.Sounds;
+import utils.Utils;
 
-import javax.swing.*;
-import java.awt.*;
-import java.awt.event.*;
+import javax.swing.ImageIcon;
+import javax.swing.JLabel;
+import javax.swing.JPanel;
+import java.awt.Container;
+import java.awt.Font;
+import java.awt.Graphics;
+import java.awt.event.ComponentEvent;
+import java.awt.event.ComponentListener;
+import java.awt.event.MouseAdapter;
+import java.awt.event.MouseEvent;
 
 public class PuzzlePanel extends JPanel{
 

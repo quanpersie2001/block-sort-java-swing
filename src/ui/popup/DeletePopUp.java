@@ -2,7 +2,9 @@ package ui.popup;
 
 import utils.Constant;
 
-import javax.swing.*;
+import javax.swing.ImageIcon;
+import javax.swing.JLabel;
+import javax.swing.JPanel;
 
 
 public class DeletePopUp extends JPanel {

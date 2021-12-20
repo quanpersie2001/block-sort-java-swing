@@ -9,9 +9,11 @@ import utils.Constant;
 import utils.Sounds;
 import utils.Utils;
 
-import javax.swing.*;
-import java.awt.*;
+import javax.swing.JPanel;
 
+import java.awt.Graphics;
+import java.awt.Graphics2D;
+import java.awt.Point;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
 import java.awt.event.MouseMotionListener;
