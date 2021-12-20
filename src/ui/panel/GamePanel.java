@@ -214,7 +214,6 @@ public class GamePanel extends JPanel implements MouseListener, MouseMotionListe
 
     @Override
     public void mousePressed(MouseEvent e) {
-        Sounds.dragSound(sound);
         Point p = e.getPoint();
         int n = currentTube(p);
 //        System.out.println(n);
@@ -222,6 +221,7 @@ public class GamePanel extends JPanel implements MouseListener, MouseMotionListe
             if(!this.tubeList.get(n).isEmpty()){
                 this.top = this.tubeList.get(n).top();
                 if (top.contains(p)){
+                    Sounds.dragSound(sound);
                     tubeList.get(n).pop();
                     this.ax=top.getX();
                     this.ay=top.getY();
