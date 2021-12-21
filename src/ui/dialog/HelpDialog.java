@@ -5,21 +5,19 @@ import org.netbeans.lib.awtextra.AbsoluteLayout;
 import utils.Constant;
 import utils.Sounds;
 
-import javax.swing.JLabel;
 import javax.swing.JPanel;
+import javax.swing.JLabel;
 import javax.swing.ImageIcon;
 import java.awt.Color;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 
-
-public class AboutDialog extends JPanel {
-
+public class HelpDialog extends JPanel {
     private JLabel bg;
     private JLabel btnClose;
     private Boolean sound;
 
-    public AboutDialog(Boolean sound){
+    public HelpDialog(Boolean sound){
         this.sound = sound;
         initComponents();
         setBackground(new Color(0, 0, 0, 100));
@@ -27,8 +25,9 @@ public class AboutDialog extends JPanel {
     }
 
     private void initComponents() {
-        btnClose = new JLabel();
+
         bg = new JLabel();
+        btnClose = new JLabel();
 
         setLayout(new AbsoluteLayout());
 
@@ -42,7 +41,7 @@ public class AboutDialog extends JPanel {
             }
         });
 
-        bg.setIcon(new ImageIcon(Constant.DRAWABLE_PATH + "about.png"));
+        bg.setIcon(new ImageIcon(Constant.DRAWABLE_PATH + "help.png"));
         add(bg, new AbsoluteConstraints(160, 70, -1, -1));
     }
 

@@ -5,6 +5,7 @@ import org.netbeans.lib.awtextra.AbsoluteConstraints;
 import org.netbeans.lib.awtextra.AbsoluteLayout;
 import ui.panel.PuzzlePanel;
 import utils.Constant;
+import utils.Sounds;
 
 import javax.swing.ImageIcon;
 import javax.swing.JLabel;
@@ -24,6 +25,7 @@ public class SettingDialog extends JPanel {
     private JLabel btnSound;
     private Game gameParent;
     private Boolean sound;
+    private HelpDialog helpDialog;
 
 
     public SettingDialog(Boolean sound) {
@@ -41,35 +43,45 @@ public class SettingDialog extends JPanel {
         btnMute = new JLabel();
         btnClose = new JLabel();
         bgSetting = new JLabel();
+        helpDialog = new HelpDialog(this.sound);
 
         setPreferredSize(new java.awt.Dimension(1366, 768));
         setLayout(new AbsoluteLayout());
 
+        add(helpDialog, new AbsoluteConstraints(0, 0, 1366, 768));
         btnQuit.setIcon(new ImageIcon(Constant.DRAWABLE_PATH + "btn_quit.png"));
+
         add(btnQuit, new AbsoluteConstraints(550, 530, -1, -1));
         btnQuit.addMouseListener(new MouseAdapter() {
             @Override
             public void mouseClicked(MouseEvent e) {
+                Sounds.buttonSound(sound);
                 quitClickListener();
             }
         });
 
         btnHelp.setIcon(new ImageIcon(Constant.DRAWABLE_PATH + "btn_help.png"));
         add(btnHelp, new AbsoluteConstraints(550, 390, -1, -1));
+        btnHelp.addMouseListener(new MouseAdapter() {
+            @Override
+            public void mouseClicked(MouseEvent e) {
+                Sounds.buttonSound(sound);
+                openHelpDialog();
+            }
+        });
 
         btnSound.setIcon(new ImageIcon(Constant.DRAWABLE_PATH + "btn_sound.png"));
         add(btnSound, new AbsoluteConstraints(550, 250, -1, -1));
-        btnSound.setVisible(false);
 
         btnMute.setIcon(new ImageIcon(Constant.DRAWABLE_PATH + "btn_mute.png"));
         add(btnMute, new AbsoluteConstraints(550, 250, -1, -1));
-        btnMute.setVisible(true);
 
         btnClose.setIcon(new ImageIcon(Constant.DRAWABLE_PATH + "btn_x.png"));
         add(btnClose, new AbsoluteConstraints(920, 120, -1, -1));
         btnClose.addMouseListener(new MouseAdapter() {
             @Override
             public void mouseClicked(MouseEvent e) {
+                Sounds.buttonSound(sound);
                 close();
             }
         });
@@ -138,5 +150,9 @@ public class SettingDialog extends JPanel {
         parent.gamePanel.setSound(false);
         gameParent = (Game) SwingUtilities.getWindowAncestor(this.getParent().getParent());
         this.gameParent.offSound();
+    }
+
+    public void openHelpDialog(){
+        helpDialog.open();
     }
 }
