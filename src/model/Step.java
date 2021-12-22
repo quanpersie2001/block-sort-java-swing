@@ -38,6 +38,6 @@ public class Step {
 
     @Override
     public String toString() {
-        return String.format("Moving from   %d   to   %d", this.tubeTaken, this.tubeGiven);
+        return String.format("Moving from   %2d   to   %2d", this.tubeTaken + 1, this.tubeGiven + 1);
     }
 }

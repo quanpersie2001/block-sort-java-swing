@@ -6,6 +6,7 @@ import org.netbeans.lib.awtextra.AbsoluteConstraints;
 import org.netbeans.lib.awtextra.AbsoluteLayout;
 import utils.Constant;
 import utils.FontStyle;
+import utils.Sounds;
 import utils.Utils;
 
 import javax.swing.JPanel;
@@ -32,11 +33,12 @@ public class SuggestDialog extends JPanel {
     private SolverDAO solverDAO;
 
     public SuggestDialog(Boolean sound, int level){
+        this.sound = sound;
         this.level = level;
         this.solverDAO = new SolverDAO(level);
         initComponents();
         setVisible(false);
-        setBackground(new Color(0,0,0,100));
+        setOpaque(false);
     }
 
     private void initComponents() {
@@ -84,16 +86,18 @@ public class SuggestDialog extends JPanel {
     private String getSuggest(){
         Stack<Step> steps = solverDAO.getStepStack();
         String str = "";
-
+        int count = 1;
         while (!steps.isEmpty()){
             Step step = steps.pop();
-            str += step.toString() + "\n";
+            str += String.format("%3d. %s\n\n", count, step.toString());
+            count++;
         }
 
         return str;
     }
 
     public void close(){
+        Sounds.buttonSound(this.sound);
         setVisible(false);
     }
 

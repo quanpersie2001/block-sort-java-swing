@@ -66,7 +66,7 @@ public class SettingDialog extends JPanel {
             @Override
             public void mouseClicked(MouseEvent e) {
                 Sounds.buttonSound(sound);
-                openHelpDialog();
+                helpClickListener();
             }
         });
 
@@ -132,7 +132,7 @@ public class SettingDialog extends JPanel {
         System.exit(1);
     }
     public void helpClickListener(){
-
+        helpDialog.open();
     }
 
     public void onSound(){
@@ -150,9 +150,5 @@ public class SettingDialog extends JPanel {
         parent.gamePanel.setSound(false);
         gameParent = (Game) SwingUtilities.getWindowAncestor(this.getParent().getParent());
         this.gameParent.offSound();
-    }
-
-    public void openHelpDialog(){
-        helpDialog.open();
     }
 }
