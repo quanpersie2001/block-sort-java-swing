@@ -45,4 +45,5 @@ public class Block extends Rectangle2D.Double {
     public String toString() {
         return color.toString();
     }
+
 }

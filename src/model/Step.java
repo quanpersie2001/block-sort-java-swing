@@ -11,6 +11,11 @@ public class Step {
         this.blockPop = blockPop;
     }
 
+    public Step(int tubeTaken, int tubeGiven) {
+        this.tubeTaken = tubeTaken;
+        this.tubeGiven = tubeGiven;
+    }
+
     public int getTubeTaken() {
         return tubeTaken;
     }
@@ -29,5 +34,10 @@ public class Step {
 
     public Block getBlockPop() {
         return blockPop;
+    }
+
+    @Override
+    public String toString() {
+        return String.format("Moving from   %d   to   %d", this.tubeTaken, this.tubeGiven);
     }
 }

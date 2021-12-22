@@ -4,6 +4,7 @@ import DAO.DataDAO;
 import model.Data;
 import org.netbeans.lib.awtextra.AbsoluteConstraints;
 import ui.dialog.SettingDialog;
+import ui.dialog.SuggestDialog;
 import ui.dialog.VictoryDialog;
 import utils.Constant;
 import utils.CustomizeColor;
@@ -34,7 +35,9 @@ public class PuzzlePanel extends JPanel{
     private JLabel txtLevel;
     private JLabel btnPreLevel;
     private JLabel btnNextLevel;
+    private JLabel btnSuggest;
     private VictoryDialog victoryDialog;
+    private SuggestDialog suggestDialog;
     public GamePanel gamePanel;
     private SettingDialog settingDialog;
     private Data data;
@@ -67,12 +70,14 @@ public class PuzzlePanel extends JPanel{
         btnNotUndo = new JLabel();
         btnPreLevel = new JLabel();
         btnNextLevel = new JLabel();
+        btnSuggest = new JLabel();
         jLabel3 = new JLabel();
         txtLevel = new JLabel();
         background = new JLabel();
+        gamePanel = new GamePanel(this.data, this.sound);
         victoryDialog = new VictoryDialog();
         settingDialog = new SettingDialog(this.sound);
-        gamePanel = new GamePanel(this.data, this.sound);
+        suggestDialog = new SuggestDialog(this.sound, this.gamePanel.getLevel());
 
         setMaximumSize(new java.awt.Dimension(1366, 768));
 
@@ -80,6 +85,7 @@ public class PuzzlePanel extends JPanel{
 
         this.add(victoryDialog, new AbsoluteConstraints(0, 0, 1366, 768));
         this.add(settingDialog, new AbsoluteConstraints(0, 0, 1366, 768));
+        this.add(suggestDialog, new AbsoluteConstraints(0, 0, 1366, 768));
         this.add(gamePanel, new AbsoluteConstraints(0, 100, 1366, 670));
 
         btnHome.setIcon(new ImageIcon(Constant.DRAWABLE_PATH + "btn_home.png"));
@@ -97,6 +103,16 @@ public class PuzzlePanel extends JPanel{
             @Override
             public void mouseClicked(MouseEvent e) {
                 btnSettingMouseClick(e);
+            }
+        });
+
+        btnSuggest.setIcon(new ImageIcon(Constant.DRAWABLE_PATH + "btn_suggest.png"));
+        this.add(btnSuggest, new AbsoluteConstraints(960, 20, -1, -1));
+        btnSuggest.addMouseListener(new MouseAdapter() {
+            @Override
+            public void mouseClicked(MouseEvent e) {
+                Sounds.buttonSound(sound);
+                suggestDialog.open();
             }
         });
 

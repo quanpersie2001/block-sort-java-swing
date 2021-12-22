@@ -153,11 +153,6 @@ public class GamePanel extends JPanel implements MouseListener, MouseMotionListe
             this.undo.removeLast();
             this.moveCount--;
             repaint();
-            try {
-                Thread.sleep(200);
-            } catch (InterruptedException e) {
-                e.printStackTrace();
-            }
         }
     }
 
@@ -190,7 +185,7 @@ public class GamePanel extends JPanel implements MouseListener, MouseMotionListe
             drawAllTube(g1, row1Size, this.size, row2Size, x, y);
         }
 
-        if(isDrag ==true && top!=null) {
+        if(isDrag == true && top != null) {
             g1.setColor(top.getColor());
             g1.fill(top);
         }
