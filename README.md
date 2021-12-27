@@ -30,7 +30,7 @@ Now, the game has **100 levels** with different difficulty levels in each level.
 ![](image/1.png)
 
 <H3><center> New Game</center></H3>
-![](image/2.png)
+![](image/1.png)
 
 <H3><center> Load Game</center></H3>
 ![](image/3.png)
