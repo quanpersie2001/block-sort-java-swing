@@ -26,27 +26,27 @@ Now, the game has **100 levels** with different difficulty levels in each level.
 
 ## Some Image of Game
 
-<H2><center> Home Screen</center></H2>
+### Home Screen
 
 ![](image/1.png)
 
-<H3><center> New Game</center></H3>
+#### New Game
 
 ![](image/2.png)
 
-<H3><center> Load Game</center></H3>
+#### Load Game
 
 ![](image/3.png)
 
-<H3><center> About Game</center></H3>
+#### About Game
 
 ![](image/4.png)
 
-<H2><center> In Game Screen</center></H2>
+### Play Screen
 
 ![](image/5.png)
 
-<H3><center> Setting </center></H3>
+#### Setting 
 
 ![](image/6.png)
 
