@@ -50,7 +50,8 @@ Now, the game has **100 levels** with different difficulty levels in each level.
 
 ![](image/6.png)
 
-
+## Need help? Have any question?
+**Support email: quannv.dev@gmail.com**
 
 ## Directory Structure
 
