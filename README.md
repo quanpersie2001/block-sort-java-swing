@@ -25,24 +25,8 @@ Now, the game has **100 levels** with different difficulty levels in each level.
 * Undo feature using Linked List.
 
 ## Some Image of Game
-<H2><center> Home Screen</center></H2>
 
-![Home Screen](https://github.com/quanpersie2001/water-sort-java-swing/blob/main/image/1.png)
-
-<H3><center> New Game</center></H3>
-![New Game](https://github.com/quanpersie2001/water-sort-java-swing/blob/main/image/2.png)
-
-<H3><center> Load Game</center></H3>
-![Load Game](https://github.com/quanpersie2001/water-sort-java-swing/blob/main/image/3.png)
-
-<H3><center> About Game</center></H3>
-![About Game](https://github.com/quanpersie2001/water-sort-java-swing/blob/main/image/4.png)
-
-<H2><center> In Game Screen</center></H2>
-![In Game](https://github.com/quanpersie2001/water-sort-java-swing/blob/main/image/5.png)
-
-<H3><center> Setting </center></H3>
-![Setting](https://github.com/quanpersie2001/water-sort-java-swing/blob/main/image/6.png)
+![](image/1.png)![](image/2.png)![](image/3.png)![](image/4.png)![](image/5.png)![](image/6.png)
 
 
 ## Directory Structure
